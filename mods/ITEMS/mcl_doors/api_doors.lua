@@ -278,14 +278,15 @@ function mcl_doors:register_door(name, def)
 	end
 
 	minetest.register_node(name.."_b_1", {
-		tiles = {"blank.png", tb.."^[transformFY", tb, tb.."^[transformFX", tb.."^[transformFX", tb},
+		mesh = "mcl_doors_door_bottom_closed.obj",
+		tiles = {tb},
 		use_texture_alpha = minetest.features.use_texture_alpha_string_modes and "clip" or true,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		sunlight_propagates = true,
 		is_ground_content = false,
 		drop = "",
-		drawtype = "nodebox",
+		drawtype = "mesh",
 		node_box = {
 			type = "fixed",
 			fixed = def.node_box_bottom
@@ -350,14 +351,15 @@ function mcl_doors:register_door(name, def)
 	end
 
 	minetest.register_node(name.."_t_1", {
-		tiles = {tt.."^[transformFY", "blank.png", tt, tt.."^[transformFX", tt.."^[transformFX", tt},
+		mesh = "mcl_doors_door_top_closed.obj",
+		tiles = {tt},
 		use_texture_alpha = minetest.features.use_texture_alpha_string_modes and "clip" or true,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		sunlight_propagates = true,
 		is_ground_content = false,
 		drop = "",
-		drawtype = "nodebox",
+		drawtype = "mesh",
 		node_box = {
 			type = "fixed",
 			fixed = def.node_box_top
@@ -421,17 +423,20 @@ function mcl_doors:register_door(name, def)
 		end
 	end
 
-	-- NOTE: Figure out a way to blit the bottom 3 pixels of the bottom door texture to the top of the texture via texture modifiers only.
-
 	minetest.register_node(name.."_b_2", {
-		tiles = {"blank.png", tb.."^[transformR180", tb, tb.."^[transformFX", tb, tb.."^[transformFX"},
+		mesh = "mcl_doors_door_bottom_open.obj",
+		tiles = {tb},
 		use_texture_alpha = minetest.features.use_texture_alpha_string_modes and "clip" or true,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		sunlight_propagates = true,
 		is_ground_content = false,
 		drop = "",
-		drawtype = "nodebox",
+		drawtype = "mesh",
+		groups = def.groups,
+		_mcl_hardness = def._mcl_hardness,
+		_mcl_blast_resistance = def._mcl_blast_resistance,
+		sounds = def.sounds,
 		node_box = {
 			type = "fixed",
 			fixed = def.node_box_bottom
@@ -440,11 +445,6 @@ function mcl_doors:register_door(name, def)
 			type = "fixed",
 			fixed = def.selection_box_bottom
 		},
-		groups = def.groups,
-		_mcl_hardness = def._mcl_hardness,
-		_mcl_blast_resistance = def._mcl_blast_resistance,
-		sounds = def.sounds,
-
 		after_destruct = function(bottom, oldnode)
 			local meta_bottom = minetest_get_meta(bottom)
 			if meta_bottom:get_int("rotation") == 1 then
@@ -495,30 +495,28 @@ function mcl_doors:register_door(name, def)
 		end
 	end
 
-	-- NOTE: Figure out a way to blit the top 3 pixels of the top door texture to the bottom of the texture via texture modifiers only.
-
 	minetest.register_node(name.."_t_2", {
-		tiles = {tt.."^[transformR180", "blank.png", tt, tt.."^[transformFX", tt, tt.."^[transformFX"},
+		mesh = "mcl_doors_door_top_open.obj",
+		tiles = {tt},
 		use_texture_alpha = minetest.features.use_texture_alpha_string_modes and "clip" or true,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		sunlight_propagates = true,
 		is_ground_content = false,
 		drop = "",
-		drawtype = "nodebox",
-		node_box = {
-			type = "fixed",
-			fixed = def.node_box_top
-		},
-		selection_box = {
-			type = "fixed",
-			fixed = def.selection_box_top
-		},
+		drawtype = "mesh",
 		groups = def.groups,
 		_mcl_hardness = def._mcl_hardness,
 		_mcl_blast_resistance = def._mcl_blast_resistance,
 		sounds = def.sounds,
-
+		node_box = {
+			type = "fixed",
+			fixed = def.node_box_bottom
+		},
+		selection_box = {
+			type = "fixed",
+			fixed = def.selection_box_bottom
+		},
 		after_destruct = function(top, oldnode)
 			local meta_top = minetest_get_meta(top)
 			if meta_top:get_int("rotation") == 1 then

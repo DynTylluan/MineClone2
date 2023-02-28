@@ -279,7 +279,7 @@ function mcl_doors:register_door(name, def)
 
 	minetest.register_node(name.."_b_1", {
 		mesh = "mcl_doors_door_bottom_closed.obj",
-		tiles = {tb},
+		tiles = {{name = tb, backface_culling = true}},
 		use_texture_alpha = minetest.features.use_texture_alpha_string_modes and "clip" or true,
 		paramtype = "light",
 		paramtype2 = "facedir",
@@ -352,7 +352,7 @@ function mcl_doors:register_door(name, def)
 
 	minetest.register_node(name.."_t_1", {
 		mesh = "mcl_doors_door_top_closed.obj",
-		tiles = {tt},
+		tiles = {{name = tt, backface_culling = true}},
 		use_texture_alpha = minetest.features.use_texture_alpha_string_modes and "clip" or true,
 		paramtype = "light",
 		paramtype2 = "facedir",
@@ -425,7 +425,7 @@ function mcl_doors:register_door(name, def)
 
 	minetest.register_node(name.."_b_2", {
 		mesh = "mcl_doors_door_bottom_open.obj",
-		tiles = {tb},
+		tiles = {{name = tb, backface_culling = true}},
 		use_texture_alpha = minetest.features.use_texture_alpha_string_modes and "clip" or true,
 		paramtype = "light",
 		paramtype2 = "facedir",
@@ -497,7 +497,7 @@ function mcl_doors:register_door(name, def)
 
 	minetest.register_node(name.."_t_2", {
 		mesh = "mcl_doors_door_top_open.obj",
-		tiles = {tt},
+		tiles = {{name = tt, backface_culling = true}},
 		use_texture_alpha = minetest.features.use_texture_alpha_string_modes and "clip" or true,
 		paramtype = "light",
 		paramtype2 = "facedir",

@@ -572,7 +572,15 @@ function mcl_doors:register_door(name, def)
 		can_dig = check_player_priv,
 	})
 
-	 minetest.register_node(name.."_b_3", {
+	if not def.only_redstone_can_open then
+		on_rightclick = function(pos, node, clicker)
+			if check_player_priv(pos, clicker) then
+				on_open_close(pos, 1, name.."_t_3", name.."_b_4", name.."_t_4")
+			end
+		end
+	end
+
+	minetest.register_node(name.."_b_3", {
 		mesh = "mcl_doors_door_bottom_closed.obj",
 		tiles = {{name = tbm, backface_culling = true}},
 		use_texture_alpha = minetest.features.use_texture_alpha_string_modes and "clip" or true,
@@ -718,7 +726,7 @@ function mcl_doors:register_door(name, def)
 		end
 	end
 
-    minetest.register_node(name.."_b_4", {
+	minetest.register_node(name.."_b_4", {
 		mesh = "mcl_doors_door_bottom_open.obj",
 		tiles = {{name = tbm, backface_culling = true}},
 		use_texture_alpha = minetest.features.use_texture_alpha_string_modes and "clip" or true,

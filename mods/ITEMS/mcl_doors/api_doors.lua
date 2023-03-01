@@ -581,8 +581,8 @@ function mcl_doors:register_door(name, def)
 	end
 
 	minetest.register_node(name.."_b_3", {
-		mesh = "mcl_doors_door_bottom_closed.obj",
-		tiles = {{name = tbm, backface_culling = true}},
+		mesh = "mcl_doors_door_bottom_closed_mirrored.obj",
+		tiles = {{name = tb, backface_culling = true}},
 		use_texture_alpha = minetest.features.use_texture_alpha_string_modes and "clip" or true,
 		paramtype = "light",
 		paramtype2 = "facedir",
@@ -654,8 +654,8 @@ function mcl_doors:register_door(name, def)
 	end
 
 	minetest.register_node(name.."_t_3", {
-		mesh = "mcl_doors_door_top_closed.obj",
-		tiles = {{name = ttm, backface_culling = true}},
+		mesh = "mcl_doors_door_top_closed_mirrored.obj",
+		tiles = {{name = tt, backface_culling = true}},
 		use_texture_alpha = minetest.features.use_texture_alpha_string_modes and "clip" or true,
 		paramtype = "light",
 		paramtype2 = "facedir",
@@ -727,8 +727,8 @@ function mcl_doors:register_door(name, def)
 	end
 
 	minetest.register_node(name.."_b_4", {
-		mesh = "mcl_doors_door_bottom_open.obj",
-		tiles = {{name = tbm, backface_culling = true}},
+		mesh = "mcl_doors_door_bottom_open_mirrored.obj",
+		tiles = {{name = tb, backface_culling = true}},
 		use_texture_alpha = minetest.features.use_texture_alpha_string_modes and "clip" or true,
 		paramtype = "light",
 		paramtype2 = "facedir",
@@ -799,8 +799,8 @@ function mcl_doors:register_door(name, def)
 	end
 
 	minetest.register_node(name.."_t_4", {
-		mesh = "mcl_doors_door_top_open.obj",
-		tiles = {{name = ttm, backface_culling = true}},
+		mesh = "mcl_doors_door_top_open_mirrored.obj",
+		tiles = {{name = tt, backface_culling = true}},
 		use_texture_alpha = minetest.features.use_texture_alpha_string_modes and "clip" or true,
 		paramtype = "light",
 		paramtype2 = "facedir",
@@ -872,5 +872,4 @@ function mcl_doors:register_door(name, def)
 		doc.add_entry_alias("craftitems", name, "nodes", name.."_t_3")
 		doc.add_entry_alias("craftitems", name, "nodes", name.."_t_4")
 	end
-
 end

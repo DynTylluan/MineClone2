@@ -202,10 +202,22 @@ function mcl_doors:register_door(name, def)
 		end,
 	})
 
-	local tt = def.tiles_top
-	local tb = def.tiles_bottom
-	local ttm = def.tiles_top .. "^[transformFX"
-	local tbm = def.tiles_bottom .. "^[transformFX"
+	local doortextop = def.tiles_top:match("(.+)%..+$")
+	local doortexbottom = def.tiles_bottom:match("(.+)%..+$")
+
+	local tt = doortextop .. ".png"
+	local tb = doortexbottom .. ".png"
+	local ttt = doortextop .. "_toppart.png" -- Special texture to make the top of opened doors not look weird.
+	local tbb = doortexbottom .. "_bottompart.png" -- Special texture to make the bottom of opened doors not look weird.
+	local tts = doortextop .. "_side.png" -- Special texture to make the side of opened doors not look weird.
+	local tbs = doortexbottom .. "_side.png" -- Special texture to make the side of opened doors not look weird.
+
+	local ttm = tt .. "^[transformFX"
+	local tbm = tb .. "^[transformFX"
+	local tttm = ttt .. "^[transformFX"
+	local tbbm = tbb .. "^[transformFX"
+	local ttsm = tts .. "^[transformFX"
+	local tbsm = tbs .. "^[transformFX"
 
 	local function on_open_close(pos, dir, check_name, replace, replace_dir)
 		local meta1 = minetest_get_meta(pos)
@@ -293,15 +305,14 @@ function mcl_doors:register_door(name, def)
 	end
 
     minetest.register_node(name.."_b_1", {
-		mesh = "mcl_doors_door_bottom_closed.obj",
-		tiles = {{name = tb, backface_culling = true}},
+		tiles = {"blank.png", tbb .. "^[transformFY", tbs, tbsm, tbm, tb},
 		use_texture_alpha = minetest.features.use_texture_alpha_string_modes and "clip" or true,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		sunlight_propagates = true,
 		is_ground_content = false,
 		drop = "",
-		drawtype = "mesh",
+		drawtype = "nodebox",
 		node_box = {
 			type = "fixed",
 			fixed = def.node_box_bottom
@@ -366,15 +377,14 @@ function mcl_doors:register_door(name, def)
 	end
 
 	minetest.register_node(name.."_t_1", {
-		mesh = "mcl_doors_door_top_closed.obj",
-		tiles = {{name = tt, backface_culling = true}},
+		tiles = {ttt .. "^[transformFY", "blank.png", tts, ttsm, ttm, tt},
 		use_texture_alpha = minetest.features.use_texture_alpha_string_modes and "clip" or true,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		sunlight_propagates = true,
 		is_ground_content = false,
 		drop = "",
-		drawtype = "mesh",
+		drawtype = "nodebox",
 		node_box = {
 			type = "fixed",
 			fixed = def.node_box_top
@@ -439,15 +449,14 @@ function mcl_doors:register_door(name, def)
 	end
 
 	minetest.register_node(name.."_b_2", {
-		mesh = "mcl_doors_door_bottom_open.obj",
-		tiles = {{name = tb, backface_culling = true}},
+		tiles = {"blank.png", tbbm, tbs, tbs, tb, tbm},
 		use_texture_alpha = minetest.features.use_texture_alpha_string_modes and "clip" or true,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		sunlight_propagates = true,
 		is_ground_content = false,
 		drop = "",
-		drawtype = "mesh",
+		drawtype = "nodebox",
 		groups = def.groups,
 		_mcl_hardness = def._mcl_hardness,
 		_mcl_blast_resistance = def._mcl_blast_resistance,
@@ -511,15 +520,14 @@ function mcl_doors:register_door(name, def)
 	end
 
 	minetest.register_node(name.."_t_2", {
-		mesh = "mcl_doors_door_top_open.obj",
-		tiles = {{name = tt, backface_culling = true}},
+		tiles = {tttm, "blank.png", tts, tts, tt, ttm},
 		use_texture_alpha = minetest.features.use_texture_alpha_string_modes and "clip" or true,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		sunlight_propagates = true,
 		is_ground_content = false,
 		drop = "",
-		drawtype = "mesh",
+		drawtype = "nodebox",
 		groups = def.groups,
 		_mcl_hardness = def._mcl_hardness,
 		_mcl_blast_resistance = def._mcl_blast_resistance,
@@ -581,15 +589,14 @@ function mcl_doors:register_door(name, def)
 	end
 
 	minetest.register_node(name.."_b_3", {
-		mesh = "mcl_doors_door_bottom_closed_mirrored.obj",
-		tiles = {{name = tb, backface_culling = true}},
+		tiles = {"blank.png", tbm .. "^[transformFY", tbs, tbsm, tb, tbm},
 		use_texture_alpha = minetest.features.use_texture_alpha_string_modes and "clip" or true,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		sunlight_propagates = true,
 		is_ground_content = false,
 		drop = "",
-		drawtype = "mesh",
+		drawtype = "nodebox",
 		node_box = {
 			type = "fixed",
 			fixed = def.node_box_bottom
@@ -654,15 +661,14 @@ function mcl_doors:register_door(name, def)
 	end
 
 	minetest.register_node(name.."_t_3", {
-		mesh = "mcl_doors_door_top_closed_mirrored.obj",
-		tiles = {{name = tt, backface_culling = true}},
+		tiles = {ttm .. "^[transformFY", "blank.png", tts, ttsm, tt, ttm},
 		use_texture_alpha = minetest.features.use_texture_alpha_string_modes and "clip" or true,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		sunlight_propagates = true,
 		is_ground_content = false,
 		drop = "",
-		drawtype = "mesh",
+		drawtype = "nodebox",
 		node_box = {
 			type = "fixed",
 			fixed = def.node_box_top
@@ -727,15 +733,14 @@ function mcl_doors:register_door(name, def)
 	end
 
 	minetest.register_node(name.."_b_4", {
-		mesh = "mcl_doors_door_bottom_open_mirrored.obj",
-		tiles = {{name = tb, backface_culling = true}},
+		tiles = {"blank.png", tbb, tbsm, tbsm, tbm, tb},
 		use_texture_alpha = minetest.features.use_texture_alpha_string_modes and "clip" or true,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		sunlight_propagates = true,
 		is_ground_content = false,
 		drop = "",
-		drawtype = "mesh",
+		drawtype = "nodebox",
 		groups = def.groups,
 		_mcl_hardness = def._mcl_hardness,
 		_mcl_blast_resistance = def._mcl_blast_resistance,
@@ -799,15 +804,14 @@ function mcl_doors:register_door(name, def)
 	end
 
 	minetest.register_node(name.."_t_4", {
-		mesh = "mcl_doors_door_top_open_mirrored.obj",
-		tiles = {{name = tt, backface_culling = true}},
+		tiles = {ttt, "blank.png", ttsm, ttsm, ttm, tt},
 		use_texture_alpha = minetest.features.use_texture_alpha_string_modes and "clip" or true,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		sunlight_propagates = true,
 		is_ground_content = false,
 		drop = "",
-		drawtype = "mesh",
+		drawtype = "nodebox",
 		groups = def.groups,
 		_mcl_hardness = def._mcl_hardness,
 		_mcl_blast_resistance = def._mcl_blast_resistance,

@@ -727,9 +727,9 @@ doc.add_category("nodes", {
 				end
 				if data.def.walkable == false then
 					if data.def.buildable_to == false and data.def.drop ~= "" then
-						datastring = datastring .. S("This block will drop as an item when a falling block ends up inside it.").."\n"
+						datastring = datastring .. S("Falling blocks will drop as an item when they ends up inside this node.").."\n"
 					else
-						datastring = datastring .. S("This block is destroyed when a falling block ends up inside it.").."\n"
+						datastring = datastring .. S("Falling blocks are destroyed when they ends up inside this node.").."\n"
 					end
 				end
 				if data.def.groups.attached_node == 1 then
